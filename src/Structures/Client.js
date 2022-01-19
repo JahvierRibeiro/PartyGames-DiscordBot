@@ -8,7 +8,7 @@ class Client extends Discord.Client{
     constructor(options){
         super({intents});
 
-        this.commands= new Discord.Collection();
+        this.commands = new Discord.Collection();
 
 
     }

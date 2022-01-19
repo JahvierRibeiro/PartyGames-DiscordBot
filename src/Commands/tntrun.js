@@ -17,28 +17,34 @@ module.exports = new Command({
         axios.get('https://mush.com.br/api/player/' + args.slice(1).join(""))
         .then( (response) => {
            
-          const tntrunembed = new MessageEmbed()
+          const exampleEmbed13 = new MessageEmbed()
           .setColor('#000')
+          .addField('\u200B', "**TNTRun** ")
           .setTitle("Stats de " + response.data.response.account.username)
           .setThumbnail("https://crafatar.com/avatars/" + response.data.response.account.unique_id)
-          .addFields(
-            { name: '\u200B', value:"**TNTRun** "},
+          if (response.data.response.stats.party["tnt_run_first_place"]) exampleEmbed13.addField(`\u200B`, "**1º Lugar: **" + response.data.response.stats.party["tnt_run_first_place"])
+          else{
+            exampleEmbed13.addField('\u200B' , "**1º Lugar:** " + "0")
+          };
+          if (response.data.response.stats.party["tnt_run_second_place"]) exampleEmbed13.addField(`\u200B`, "**2º Lugar: **" + response.data.response.stats.party["tnt_run_second_place"])
+          else{
+            exampleEmbed13.addField('\u200B' , "**2º Lugar:** " + "0")
+          };
+          if (response.data.response.stats.party["tnt_run_third_place"]) exampleEmbed13.addField(`\u200B`, "**3º Lugar: **" + response.data.response.stats.party["tnt_run_third_place"])
+          else{
+            exampleEmbed13.addField('\u200B' , "**3º Lugar:** " + "0")
+          };
 
-              { name: '\u200B', value:"**1º Lugar:** " + response.data.response.stats["party:tnt_run_first_place"]},
-              
-              { name: '\u200B', value:"**2º Lugar:** " + response.data.response.stats["party:tnt_run_second_place"]},
-
-              { name: '\u200B', value:"**3º Lugar:** " + response.data.response.stats["party:tnt_run_third_place"]},
-
-              { name: '\u200B', value:"**Pontos:** " + response.data.response.stats["party:tnt_run_points"]},
-
-
-              { name: '\u200B', value:"**Jogou TNTRun: ** " + "**" +response.data.response.stats["party:tnt_run_played"]+"**"+ " **vezes**"},
-
-              
-          )
+          if (response.data.response.stats.party["tnt_run_points"]) exampleEmbed13.addField(`\u200B`, "**Pontos: **" + response.data.response.stats.party["tnt_run_points"])
+          else{
+            exampleEmbed13.addField('\u200B' , "**Pontos:** 0")
+          };
+          if (response.data.response.stats.party["tnt_run_played"]) exampleEmbed13.addField(`\u200B`, "**Jogou TNTRun: " + response.data.response.stats.party["tnt_run_played"] + " vezes**")
+          else{
+            exampleEmbed13.addField('\u200B' , "**Jogou TNTRun: 0 vezes**")
+          };
           
-        message.reply({embeds : [tntrunembed]});
+        message.reply({embeds : [exampleEmbed13]});
              
               
    })

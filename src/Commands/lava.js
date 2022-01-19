@@ -17,28 +17,34 @@ module.exports = new Command({
         axios.get('https://mush.com.br/api/player/' + args.slice(1).join(""))
         .then( (response) => {
            
-          const lavaembed = new MessageEmbed()
+          const exampleEmbed9 = new MessageEmbed()
           .setColor('#000')
+          .addField('\u200B', "**Lava** ")
           .setTitle("Stats de " + response.data.response.account.username)
           .setThumbnail("https://crafatar.com/avatars/" + response.data.response.account.unique_id)
-          .addFields(
-            { name: '\u200B', value:"**Lava** "},
+          if (response.data.response.stats.party["lava_first_place"]) exampleEmbed9.addField(`\u200B`, "**1º Lugar: **" + response.data.response.stats.party["lava_first_place"])
+          else{
+            exampleEmbed9.addField('\u200B' , "**1º Lugar:** " + "0")
+          };
+          if (response.data.response.stats.party["lava_second_place"]) exampleEmbed9.addField(`\u200B`, "**2º Lugar: **" + response.data.response.stats.party["lava_second_place"])
+          else{
+            exampleEmbed9.addField('\u200B' , "**2º Lugar:** " + "0")
+          };
+          if (response.data.response.stats.party["lava_third_place"]) exampleEmbed9.addField(`\u200B`, "**3º Lugar: **" + response.data.response.stats.party["lava_third_place"])
+          else{
+            exampleEmbed9.addField('\u200B' , "**3º Lugar:** " + "0")
+          };
 
-              { name: '\u200B', value:"**1º Lugar:** " + response.data.response.stats["party:lava_first_place"]},
-              
-              { name: '\u200B', value:"**2º Lugar:** " + response.data.response.stats["party:lava_second_place"]},
-
-              { name: '\u200B', value:"**3º Lugar:** " + response.data.response.stats["party:lava_third_place"]},
-
-              { name: '\u200B', value:"**Pontos:** " + response.data.response.stats["party:lava_points"]},
-
-
-              { name: '\u200B', value:"**Jogou Lava: ** " + "**" +response.data.response.stats["party:lava_played"]+"**"+ " **vezes**"},
-
-              
-          )
+          if (response.data.response.stats.party["lava_points"]) exampleEmbed9.addField(`\u200B`, "**Pontos: **" + response.data.response.stats.party["lava_points"])
+          else{
+            exampleEmbed9.addField('\u200B' , "**Pontos:** 0")
+          };
+          if (response.data.response.stats.party["lava_played"]) exampleEmbed9.addField(`\u200B`, "**Jogou Lava: " + response.data.response.stats.party["lava_played"] + " vezes**")
+          else{
+            exampleEmbed9.addField('\u200B' , "**Jogou Lava: 0 vezes**")
+          };
           
-        message.reply({embeds : [lavaembed]});
+        message.reply({embeds : [exampleEmbed9]});
              
               
    })

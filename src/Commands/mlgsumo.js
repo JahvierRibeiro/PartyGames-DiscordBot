@@ -17,28 +17,34 @@ module.exports = new Command({
         axios.get('https://mush.com.br/api/player/' + args.slice(1).join(""))
         .then( (response) => {
            
-          const mlgsumoembed = new MessageEmbed()
+          const exampleEmbed10 = new MessageEmbed()
           .setColor('#000')
+          .addField('\u200B', "**MlgSumo** ")
           .setTitle("Stats de " + response.data.response.account.username)
           .setThumbnail("https://crafatar.com/avatars/" + response.data.response.account.unique_id)
-          .addFields(
-            { name: '\u200B', value:"**MlgSumo** "},
+          if (response.data.response.stats.party["mlg_sumo_first_place"]) exampleEmbed10.addField(`\u200B`, "**1º Lugar: **" + response.data.response.stats.party["mlg_sumo_first_place"])
+          else{
+            exampleEmbed10.addField('\u200B' , "**1º Lugar:** " + "0")
+          };
+          if (response.data.response.stats.party["mlg_sumo_second_place"]) exampleEmbed10.addField(`\u200B`, "**2º Lugar: **" + response.data.response.stats.party["mlg_sumo_second_place"])
+          else{
+            exampleEmbed10.addField('\u200B' , "**2º Lugar:** " + "0")
+          };
+          if (response.data.response.stats.party["mlg_sumo_third_place"]) exampleEmbed10.addField(`\u200B`, "**3º Lugar: **" + response.data.response.stats.party["mlg_sumo_third_place"])
+          else{
+            exampleEmbed10.addField('\u200B' , "**3º Lugar:** " + "0")
+          };
 
-              { name: '\u200B', value:"**1º Lugar:** " + response.data.response.stats["party:mlg_sumo_first_place"]},
-              
-              { name: '\u200B', value:"**2º Lugar:** " + response.data.response.stats["party:mlg_sumo_second_place"]},
-
-              { name: '\u200B', value:"**3º Lugar:** " + response.data.response.stats["party:mlg_sumo_third_place"]},
-
-              { name: '\u200B', value:"**Pontos:** " + response.data.response.stats["party:mlg_sumo_points"]},
-
-
-              { name: '\u200B', value:"**Jogou MlgSumo: ** " + "**" +response.data.response.stats["party:mlg_sumo_played"]+"**"+ " **vezes**"},
-
-              
-          )
+          if (response.data.response.stats.party["mlg_sumo_points"]) exampleEmbed10.addField(`\u200B`, "**Pontos: **" + response.data.response.stats.party["mlg_sumo_points"])
+          else{
+            exampleEmbed10.addField('\u200B' , "**Pontos:** 0")
+          };
+          if (response.data.response.stats.party["mlg_sumo_played"]) exampleEmbed10.addField(`\u200B`, "**Jogou MlgSumo: " + response.data.response.stats.party["mlg_sumo_played"] + " vezes**")
+          else{
+            exampleEmbed10.addField('\u200B' , "**Jogou MlgSumo: 0 vezes**")
+          };
           
-        message.reply({embeds : [mlgsumoembed]});
+        message.reply({embeds : [exampleEmbed10]});
              
               
    })

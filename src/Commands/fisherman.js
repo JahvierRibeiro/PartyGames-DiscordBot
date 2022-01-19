@@ -17,28 +17,35 @@ module.exports = new Command({
         axios.get('https://mush.com.br/api/player/' + args.slice(1).join(""))
         .then( (response) => {
            
-          const fishermanembed = new MessageEmbed()
+          const exampleEmbed5 = new MessageEmbed() 
           .setColor('#000')
+          .addField('\u200B', "**Fisherman** ")
           .setTitle("Stats de " + response.data.response.account.username)
           .setThumbnail("https://crafatar.com/avatars/" + response.data.response.account.unique_id)
-          .addFields(
-            { name: '\u200B', value:"**Fisherman** "},
+          if (response.data.response.stats.party["fisherman_first_place"]) exampleEmbed5.addField(`\u200B`, "**1º Lugar: **" + response.data.response.stats.party["fisherman_first_place"])
+          else{
+            exampleEmbed5.addField('\u200B' , "**1º Lugar:** " + "0")
+          };
+          if (response.data.response.stats.party["fisherman_second_place"]) exampleEmbed5.addField(`\u200B`, "**2º Lugar: **" + response.data.response.stats.party["fisherman_second_place"])
+          else{
+            exampleEmbed5.addField('\u200B' , "**2º Lugar:** " + "0")
+          };
+          if (response.data.response.stats.party["fisherman_third_place"]) exampleEmbed5.addField(`\u200B`, "**3º Lugar: **" + response.data.response.stats.party["fisherman_third_place"])
+          else{
+            exampleEmbed5.addField('\u200B' , "**3º Lugar:** " + "0")
+          };
 
-              { name: '\u200B', value:"**1º Lugar:** " + response.data.response.stats["party:fisherman_first_place"]},
-              
-              { name: '\u200B', value:"**2º Lugar:** " + response.data.response.stats["party:fisherman_second_place"]},
-
-              { name: '\u200B', value:"**3º Lugar:** " + response.data.response.stats["party:fisherman_third_place"]},
-
-              { name: '\u200B', value:"**Pontos:** " + response.data.response.stats["party:fisherman_points"]},
-
-
-              { name: '\u200B', value:"**Jogou Fisherman: ** " + "**" +response.data.response.stats["party:fisherman_played"]+"**"+ " **vezes**"},
-
-              
-          )
+          if (response.data.response.stats.party["fisherman_points"]) exampleEmbed5.addField(`\u200B`, "**Pontos: **" + response.data.response.stats.party["fisherman_points"])
+          else{
+            exampleEmbed5.addField('\u200B' , "**Pontos:** 0")
+          };
+          if (response.data.response.stats.party["fisherman_played"]) exampleEmbed5.addField(`\u200B`, "**Jogou Fisherman: " + response.data.response.stats.party["fisherman_played"] + " vezes**")
+          else{
+            exampleEmbed5.addField('\u200B' , "**Jogou Fisherman: 0 vezes**")
+          };
+         
           
-        message.reply({embeds : [fishermanembed]});
+        message.reply({embeds : [exampleEmbed5]});
              
               
    })
