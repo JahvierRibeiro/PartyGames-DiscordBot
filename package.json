@@ -1,0 +1,20 @@
+{
+  "name": "partygames-bot2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Stona",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.24.0",
+    "discord-epagination": "^1.4.5",
+    "discord.js": "^13.3.1",
+    "dotenv": "^10.0.0",
+    "mongoose": "^6.0.13",
+    "reconlx": "^2.5.1",
+    "snekfetch": "^4.0.4"
+  }
+}
